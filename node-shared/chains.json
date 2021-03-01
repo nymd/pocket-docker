@@ -1,0 +1,9 @@
+[
+  { "id": "0001",
+    "url": "http://localhost:8082"
+  },
+  {
+    "id": "0021",
+    "url": "http://ETH_NODE_ADDRESS:8545"
+  }
+]

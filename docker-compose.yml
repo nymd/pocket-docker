@@ -1,0 +1,55 @@
+version: '2.1'
+
+services:
+
+  nachonode-1:
+    image: pocket-core-rc-0.5.2.10:latest
+    privileged: true
+    command: "pocket start"
+    ports:
+      - "8082:8082"  #  POKT RPC
+      - "26656:26656" #  Tendermint Peers
+    environment:
+      POCKET_CORE_KEY: "STAKED_ACCOUNT_#1_PRIVATE_KEY"
+      POCKET_CORE_PASSPHRASE: "RANDOM_PASSPHRASE"
+      GODEBUG: "madvdontneed=1"
+    volumes:
+        - "./node-shared/chains.json:/home/app/.pocket/config/chains.json"
+        - "./node-shared/genesis.json:/home/app/.pocket/config/genesis.json"
+        - "./node-1/auth.json:/home/app/.pocket/config/auth.json"
+        - "./node-1/config.json:/home/app/.pocket/config/config.json"
+        - "./node-1/data:/home/app/.pocket/data"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - pocket
+
+  nachonode-2:
+    image: pocket-core-rc-0.5.2.10:latest
+    privileged: true
+    command: "pocket start"
+    ports:
+      - "8083:8082"  #  POKT RPC -- This one is incremented so it is also available on 8083 for nginx
+      - "26666:26666" #  Tendermint Peers
+    environment:
+      POCKET_CORE_KEY: "STAKED_ACCOUNT_#2_PRIVATE_KEY"
+      POCKET_CORE_PASSPHRASE: "RANDOM_PASSPHRASE"
+      GODEBUG: "madvdontneed=1"
+    volumes:
+        - "./node-shared/chains.json:/home/app/.pocket/config/chains.json"
+        - "./node-shared/genesis.json:/home/app/.pocket/config/genesis.json"
+        - "./node-2/auth.json:/home/app/.pocket/config/auth.json"
+        - "./node-2/config.json:/home/app/.pocket/config/config.json"
+        - "./node-2/data:/home/app/.pocket/data"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - pocket
+
+networks:
+  pocket:
+    driver: bridge
