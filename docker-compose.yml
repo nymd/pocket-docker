@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
 
-  nachonode-1:
+  node-1:
     image: pocket-core-rc-0.5.2.10:latest
     privileged: true
     command: "pocket start"
@@ -26,7 +26,7 @@ services:
     networks:
       - pocket
 
-  nachonode-2:
+  node-2:
     image: pocket-core-rc-0.5.2.10:latest
     privileged: true
     command: "pocket start"
