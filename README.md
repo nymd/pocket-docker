@@ -10,11 +10,12 @@
 ### ./docker-compose.yml
 
 - Change PRIVATE_KEYs to your staked node's private keys
-- If using a separate data storage device, change the location where Docker is storing the node data: ```"./node-1/data:/home/app/.pocket/data"```
+- If using a separate data storage device, change the location where Docker is storing the node data: 
+```"./node-1/data:/home/app/.pocket/data"```
 
 ## File ownership
 
-The data directory must be owned by the process running Pocket inside of Docker. On Ubuntu 18.04, this is user 1005 and user group 1001.
+The data directory must be owned by the process running Pocket inside of Docker. On Ubuntu 18.04, this is user 1001 and user group 1005.
 
 ```CHOWN -R 1001:1005 ./node-1/data/```
 ```CHOWN -R 1001:1005 ./node-2/data/```
