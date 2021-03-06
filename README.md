@@ -17,8 +17,8 @@
 
 The data directory must be owned by the process running Pocket inside of Docker. On Ubuntu 18.04, this is user 1001 and user group 1005.
 
-```CHOWN -R 1001:1005 ./node-1/data/```
-```CHOWN -R 1001:1005 ./node-2/data/```
+```CHOWN -R 1005:1001 ./node-1/data/```
+```CHOWN -R 1005:1001 ./node-2/data/```
 
 ## To build
 
