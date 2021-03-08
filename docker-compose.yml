@@ -2,6 +2,44 @@ version: '2.1'
 
 services:
 
+  oe-1:
+    container_name: oe1
+    image: ethcore/openethereum:v3.1.1
+    cpus: '24'
+    mem_limit: '24G'
+    ports:
+      - "8555:8545"
+      - "30303:30303"
+    volumes:
+      - "./openethereum/eth1/config.toml:/home/openethereum/.local/share/openethereum/config.toml"
+      - "./openethereum/openethereum.log:/var/log/openethereum.log"
+      - "/mnt/eth1:/data" # Change this to reflect the data directory for your eth node
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - default
+
+  nginx:
+    container_name: nginx
+    image: nginx-brotli:latest
+    cpus: '2'
+    mem_limit: '2G'
+    ports:
+      - "443-444:443-444" # Where the HTTPS will terminate for your pocket nodes
+    volumes:
+      - "/etc/letsencrypt/live/YOURDOMAIN/fullchain.pem:/etc/nginx/fullchain.pem"
+      - "/etc/letsencrypt/live/YOURDOMAIN/privkey.pem:/etc/nginx/privkey.pem"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./nginx/nodes.conf:/etc/nginx/conf.d/default.conf"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - default
+
   node-1:
     image: pocket-core-rc-0.5.2.10:latest
     privileged: true
