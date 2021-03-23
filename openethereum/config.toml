@@ -1,0 +1,41 @@
+[parity]
+base_path = "/data/oe"
+db_path = "/data/oe/chains"
+keys_path = "/data/oe/keys"
+identity = "oe-1"
+
+[footprint]
+tracing = "off"
+pruning = "fast"
+fat_db = "off"
+
+[rpc]
+disable = false
+port = 8545
+interface = "all"
+cors = ["null"]
+apis = ["web3", "eth", "net", "parity", "traces"]
+hosts = ["all"]
+allow_missing_blocks = false
+server_threads = 18
+processing_threads = 4
+
+[websockets]
+disable = false
+port = 8546
+interface = "all"
+origins = ["none"]
+apis = ["web3", "eth", "net", "parity", "traces"]
+hosts = ["all"]
+
+[ipc]
+disable = false
+path = "/home/openethereum/oe.ipc"
+apis = ["web3", "eth", "net", "parity", "traces"]
+
+[misc]
+logging = "own_tx=trace"
+log_file = "/var/log/openethereum.log"
+
+[network]
+port = 30303
