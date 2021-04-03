@@ -2,7 +2,7 @@ version: '2.1'
 
 services:
 
-  oe-1:
+  oe1:
     container_name: oe1
     image: ethcore/openethereum:v3.1.1
     cpus: '24'
@@ -40,7 +40,8 @@ services:
     networks:
       - default
 
-  node-1:
+  node1:
+    container_name: node1
     image: pocket-core-rc-0.5.2.10:latest
     privileged: true
     command: "pocket start"
@@ -64,7 +65,8 @@ services:
     networks:
       - pocket
 
-  node-2:
+  node2:
+    container_name: node2
     image: pocket-core-rc-0.5.2.10:latest
     privileged: true
     command: "pocket start"
