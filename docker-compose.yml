@@ -19,7 +19,7 @@ services:
         max-size: "10m"
         max-file: "3"
     networks:
-      - default
+      - pocket
 
   nginx:
     container_name: nginx
@@ -38,7 +38,7 @@ services:
         max-size: "10m"
         max-file: "3"
     networks:
-      - default
+      - pocket
 
   node1:
     container_name: node1
