@@ -4,7 +4,7 @@ services:
 
   oe1:
     container_name: oe1
-    image: ethcore/openethereum:v3.1.1
+    image: openethereum/openethereum:v3.2.3
     cpus: '24'
     mem_limit: '24G'
     ports:
@@ -42,7 +42,7 @@ services:
 
   node1:
     container_name: node1
-    image: pocket-core-rc-0.5.2.10:latest
+    image: poktnetwork/pocket:RC-0.6.1
     privileged: true
     command: "pocket start"
     ports:
@@ -67,7 +67,7 @@ services:
 
   node2:
     container_name: node2
-    image: pocket-core-rc-0.5.2.10:latest
+    image: poktnetwork/pocket:RC-0.6.1
     privileged: true
     command: "pocket start"
     ports:
