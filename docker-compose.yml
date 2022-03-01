@@ -2,25 +2,6 @@ version: '2.1'
 
 services:
 
-  oe1:
-    container_name: oe1
-    image: openethereum/openethereum:v3.2.3
-    cpus: '24'
-    mem_limit: '24G'
-    ports:
-      - "8555:8545"
-      - "30303:30303"
-    volumes:
-      - "./openethereum/eth1/config.toml:/home/openethereum/.local/share/openethereum/config.toml"
-      - "./openethereum/openethereum.log:/var/log/openethereum.log"
-      - "/mnt/eth1:/data" # Change this to reflect the data directory for your eth node
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "3"
-    networks:
-      - pocket
-
   nginx:
     container_name: nginx
     image: nginx-brotli:latest
@@ -42,20 +23,17 @@ services:
 
   node1:
     container_name: node1
-    image: poktnetwork/pocket:RC-0.6.1
-    privileged: true
-    command: "pocket start"
+    image: pocketfoundation/pocket-core:latest
+    command: "pocket start --useCache"
     ports:
       - "8082:8082"  #  POKT RPC
       - "26656:26656" #  Tendermint Peers
     environment:
       POCKET_CORE_KEY: "STAKED_ACCOUNT_#1_PRIVATE_KEY"
       POCKET_CORE_PASSPHRASE: "RANDOM_PASSPHRASE"
-      GODEBUG: "madvdontneed=1"
     volumes:
         - "./node-shared/chains.json:/home/app/.pocket/config/chains.json"
         - "./node-shared/genesis.json:/home/app/.pocket/config/genesis.json"
-        - "./node-1/auth.json:/home/app/.pocket/config/auth.json"
         - "./node-1/config.json:/home/app/.pocket/config/config.json"
         - "./node-1/data:/home/app/.pocket/data"
     logging:
@@ -67,20 +45,17 @@ services:
 
   node2:
     container_name: node2
-    image: poktnetwork/pocket:RC-0.6.1
-    privileged: true
-    command: "pocket start"
+    image: pocketfoundation/pocket-core:latest
+    command: "pocket start --useCache"
     ports:
       - "8083:8082"  #  POKT RPC -- This one is incremented so it is also available on 8083 for nginx
       - "26666:26666" #  Tendermint Peers
     environment:
       POCKET_CORE_KEY: "STAKED_ACCOUNT_#2_PRIVATE_KEY"
       POCKET_CORE_PASSPHRASE: "RANDOM_PASSPHRASE"
-      GODEBUG: "madvdontneed=1"
     volumes:
         - "./node-shared/chains.json:/home/app/.pocket/config/chains.json"
         - "./node-shared/genesis.json:/home/app/.pocket/config/genesis.json"
-        - "./node-2/auth.json:/home/app/.pocket/config/auth.json"
         - "./node-2/config.json:/home/app/.pocket/config/config.json"
         - "./node-2/data:/home/app/.pocket/data"
     logging:
