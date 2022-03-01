@@ -15,14 +15,10 @@
 
 ## File ownership
 
-The data directory must be owned by the process running Pocket inside of Docker. On Ubuntu 18.04, this is user 1001 and user group 1005.
+The data directory must be owned by the process running Pocket inside of Docker. On Ubuntu 20.04, this is user 1005 and user group 1001.
 
 ```CHOWN -R 1005:1001 ./node-1/data/```
 ```CHOWN -R 1005:1001 ./node-2/data/```
-
-## To build
-
-```./build.sh 1.13 RC-0.5.2.10 poktnetwork/pocket-core rc-0.5.2.10```
 
 ## To run
 
